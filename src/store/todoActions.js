@@ -7,3 +7,9 @@ export const add = title => ({
   type: 'ADD',
   title
 });
+
+// Added new action as FILTER
+export const todofilter = value => ({
+  type: 'FILTER',
+  value
+});

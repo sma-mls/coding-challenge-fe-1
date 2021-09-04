@@ -18,3 +18,8 @@ addListener('click', '[data-element="toggleTodo"]', e => {
   const id = Number(e.target.dataset.id);
   store.dispatch(todoActions.toggle(id));
 });
+
+// Added click action on Filter
+addListener('click', '[data-element="todoFilter"]', e => {
+  store.dispatch(todoActions.todofilter(e.target.value));
+});
