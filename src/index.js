@@ -16,4 +16,4 @@ ReactDOM.render(
     document.getElementById('demo')
 );
 
-store.dispatch({ type: 'INIT'});
+store.dispatch({ type: 'API_GET_TODO'});

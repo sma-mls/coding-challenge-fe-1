@@ -1,6 +1,6 @@
 const actions = {
     add: title => ({
-        type: 'ADD',
+        type: 'API_ADD_TODO',
         title
     }),
 

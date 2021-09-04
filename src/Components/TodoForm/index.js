@@ -30,8 +30,12 @@ class TodoForm extends React.Component {
     }
 
     handleAdd = () => {
-        if(this.state.todoTitle != '')
+        if (this.state.todoTitle != '') {
             this.props.dispatch(actions.add(this.state.todoTitle));
+            this.setState({
+                todoTitle: ""
+            });
+        }
     }
     render() {
         return (<div className="TodoForm">
