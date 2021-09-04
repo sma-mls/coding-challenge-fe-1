@@ -1,10 +1,16 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import appReducer from "./Reducers";
 import './main.css';
+import App from './App';
 
-import store from './store';
-import render from './render';
-import './registerEventListeners';
+const store = createStore(appReducer);
 
-const rootElement = document.getElementById('demo');
-
-store.subscribe(state => render(rootElement, state));
-render(rootElement, store.getState());
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('demo')
+);
