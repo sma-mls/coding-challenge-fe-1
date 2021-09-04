@@ -1,10 +1,9 @@
 import api from "./api"
 
 const service = store => next => action => {
-    console.log(action);
+    next(action);
     switch (action.type) {
         case 'API_GET_TODO':
-            console.log('Get called');
             api.getAllTodo()
                 .then((response) => {
                     next({
@@ -16,9 +15,10 @@ const service = store => next => action => {
         case 'API_ADD_TODO':
             api.addTodo(action.title)
                 .then((response) => {
-                    console.log(response);
-                    next({type:'API_GET_TODO'});
+                    store.dispatch({ type: 'API_GET_TODO' });
                 });
+            break;
+        default: break;
     }
 }
 
