@@ -1,10 +1,19 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import appReducer from "./Reducers";
+import service from './Services';
 import './main.css';
+import App from './App';
 
-import store from './store';
-import render from './render';
-import './registerEventListeners';
+const store = createStore(appReducer,applyMiddleware(service));
 
-const rootElement = document.getElementById('demo');
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('demo')
+);
 
-store.subscribe(state => render(rootElement, state));
-render(rootElement, store.getState());
+store.dispatch({ type: 'INIT'});

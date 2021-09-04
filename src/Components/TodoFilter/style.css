@@ -1,0 +1,13 @@
+.TodoFilter {
+    margin: 2px;
+}
+
+.TodoFilter input{
+    margin: 3px;
+    cursor: pointer;
+}
+
+.TodoFilter label{
+    margin: 3px;
+    cursor: pointer;
+}

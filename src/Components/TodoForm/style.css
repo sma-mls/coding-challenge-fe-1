@@ -1,0 +1,11 @@
+.TodoForm{
+    padding: 8px
+}
+
+.TodoForm input{
+    margin: 10px;
+}
+
+.TodoForm button{
+    cursor: pointer;
+}
