@@ -1,5 +1,4 @@
-import store from './store';
-import * as todoActions from './store/todoActions';
+import todoStore from './todoStore';
 
 function addListener(eventName, selector, callback) {
   document.body.addEventListener(eventName, e => {
@@ -11,10 +10,10 @@ function addListener(eventName, selector, callback) {
 
 addListener('click', '[data-element="addTodoButton"]', () => {
   const todoInput = document.querySelector('[data-element="addTodoInput"]');
-  store.dispatch(todoActions.add(todoInput.value));
+  todoStore.dispatch({ type: 'ADD', title : todoInput.value });
 });
 
 addListener('click', '[data-element="toggleTodo"]', e => {
   const id = Number(e.target.dataset.id);
-  store.dispatch(todoActions.toggle(id));
+  todoStore.dispatch({ type: 'TOGGLE' , id });
 });
