@@ -8,7 +8,7 @@ export const add = (title) => ({
   payload: {title}
 });
 
-export const filter = (appliedFilter) => ({
+export const filterList = (appliedFilter) => ({
   type: 'FILTER',
   payload: {appliedFilter}
 });
