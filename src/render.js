@@ -30,16 +30,16 @@ function renderTodoItem(todo) {
 
 export default (element, state) => {
   let filteredTodos;
-  if (state.filter === 'completed') {
-    filteredTodos = state.todos.filter((todo) => {
+  if (state.todoList.filter === 'completed') {
+    filteredTodos = state.todoList.todos.filter((todo) => {
       return todo.completed;
     });
-  } else if (state.filter === 'notCompleted') {
-    filteredTodos = state.todos.filter((todo) => {
+  } else if (state.todoList.filter === 'notCompleted') {
+    filteredTodos = state.todoList.todos.filter((todo) => {
       return !todo.completed;
     });
   } else {
-    filteredTodos = state.todos;
+    filteredTodos = state.todoList.todos;
   }
   const todoItems = filteredTodos.map(renderTodoItem).join('');
   element.innerHTML = renderApp(
@@ -47,9 +47,9 @@ export default (element, state) => {
     renderTodos(todoItems)
   );
   let radioInput;
-  if (state.filter === 'completed') {
+  if (state.todoList.filter === 'completed') {
     radioInput = document.querySelector('[data-element="filterCompleted"]');
-  } else if (state.filter === 'notCompleted') {
+  } else if (state.todoList.filter === 'notCompleted') {
     radioInput = document.querySelector('[data-element="filterNotCompleted"]');
   } else {
     radioInput = document.querySelector('[data-element="filterShowAll"]');

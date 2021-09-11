@@ -6,7 +6,7 @@ const uniqueId = {
   }
 };
 
-export const initialState = {
+const initialState = {
   filter: 'showAll',
   todos: [
     {
@@ -35,22 +35,29 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'ADD':
-      state.todos.push({
-        id: uniqueId.get(),
-        title: action.title,
-        completed: false
-      });
-      break;
-    case 'TOGGLE':
-      for (let todo of state.todos) {
-        if (todo.id === action.id) {
-          todo.completed = !todo.completed;
-          break;
-        }
+      return {
+        todos: [...state.todos, {
+          id: uniqueId.get(),
+          title: action.payload.title,
+          completed: false
+        }],
+        filter: state.filter
       }
-      break;
+    case 'TOGGLE':
+      return {
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            todo.completed = !todo.completed;
+          }
+          return todo;
+        }),
+        filter: state.filter,
+      }
     case 'FILTER':
-      state.filter = action.appliedFilter;
-      break;
+      return {
+        todos: state.todos,
+        filter: action.payload.appliedFilter,
+      }
   }
+  return state;
 }

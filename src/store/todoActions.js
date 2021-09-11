@@ -1,14 +1,15 @@
-export const toggle = id => ({
+export const toggle = (id) => ({
   type: 'TOGGLE',
-  id
+  payload: {id}
 });
 
-export const add = title => ({
+export const add = (title) => ({
   type: 'ADD',
-  title
+  payload: {title}
 });
 
-export const filter = appliedFilter => ({
+export const filter = (appliedFilter) => ({
   type: 'FILTER',
-  appliedFilter
+  payload: {appliedFilter}
 });
+
