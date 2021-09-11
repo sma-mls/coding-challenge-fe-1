@@ -7,6 +7,7 @@ const uniqueId = {
 };
 
 export const initialState = {
+  filter: 'showAll',
   todos: [
     {
       id: uniqueId.get(),
@@ -47,6 +48,9 @@ export default (state = initialState, action) => {
           break;
         }
       }
+      break;
+    case 'FILTER':
+      state.filter = action.appliedFilter;
       break;
   }
 }

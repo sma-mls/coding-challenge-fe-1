@@ -6,8 +6,16 @@ function renderForm() {
   return `<div class="form">
     <input type="text" data-element="addTodoInput">
     <button data-element="addTodoButton">Add</button>
+    <p>Apply a filter</p>
+    <input id="showAll" type="radio" value="showAll" name="filterGroup" data-element="filterShowAll">
+    <label for="showAll">Show All</label>
+    <input id="completed" type="radio" value="completed" name="filterGroup" data-element="filterCompleted">
+    <label for="completed">Completed</label>
+    <input id="notCompleted" type="radio" value="notCompleted" name="filterGroup" data-element="filterNotCompleted">
+    <label for="notCompleted">Not Completed</label>
   </div>`;
 }
+
 
 function renderTodos(todoItems) {
   return `<ul class="todos">${todoItems}</ul>`;
@@ -21,9 +29,30 @@ function renderTodoItem(todo) {
 }
 
 export default (element, state) => {
-  const todoItems = state.todos.map(renderTodoItem).join('');
+  let filteredTodos;
+  if (state.filter === 'completed') {
+    filteredTodos = state.todos.filter((todo) => {
+      return todo.completed;
+    });
+  } else if (state.filter === 'notCompleted') {
+    filteredTodos = state.todos.filter((todo) => {
+      return !todo.completed;
+    });
+  } else {
+    filteredTodos = state.todos;
+  }
+  const todoItems = filteredTodos.map(renderTodoItem).join('');
   element.innerHTML = renderApp(
     renderForm(),
     renderTodos(todoItems)
   );
+  let radioInput;
+  if (state.filter === 'completed') {
+    radioInput = document.querySelector('[data-element="filterCompleted"]');
+  } else if (state.filter === 'notCompleted') {
+    radioInput = document.querySelector('[data-element="filterNotCompleted"]');
+  } else {
+    radioInput = document.querySelector('[data-element="filterShowAll"]');
+  }
+  radioInput.checked = true;
 }

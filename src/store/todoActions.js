@@ -7,3 +7,8 @@ export const add = title => ({
   type: 'ADD',
   title
 });
+
+export const filter = appliedFilter => ({
+  type: 'FILTER',
+  appliedFilter
+});
