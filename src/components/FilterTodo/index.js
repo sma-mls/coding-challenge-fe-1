@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Form } from 'semantic-ui-react';
+import { StyledLabel, StyledSelect } from './styled';
 
 const FilterToDo = ({filterTodo}) => {
     const [appliedFilter, setAppliedFilter] = useState('showAll');
@@ -7,14 +9,14 @@ const FilterToDo = ({filterTodo}) => {
         filterTodo(event.target.value);
     };
     return (
-        <>
-            <p>Apply a filter</p>
-            <select value={appliedFilter} onChange={handleChange}>
+        <Form.Field>
+            <StyledLabel>Apply a filter</StyledLabel>
+            <StyledSelect value={appliedFilter} onChange={handleChange}>
                 <option value="showAll">Show All</option>
                 <option value="completed">Completed</option>
                 <option value="notCompleted">Not Completed</option>
-            </select>
-        </>
+            </StyledSelect>
+        </Form.Field>
     );
 };
 

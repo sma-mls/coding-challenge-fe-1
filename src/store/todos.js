@@ -58,6 +58,13 @@ export default (state = initialState, action) => {
         todos: state.todos,
         filter: action.payload.appliedFilter,
       }
+    case 'REMOVE':
+      return {
+        todos: state.todos.filter((todo) => {
+          return todo.id !== action.payload.id;
+        }),
+        filter: action.payload.appliedFilter,
+      }
   }
   return state;
 }

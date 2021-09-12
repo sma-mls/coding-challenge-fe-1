@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Form, Button } from 'semantic-ui-react';
+import { StyledLabel } from './styled';
 
 const AddToDo = ({ addTodo }) => {
     const [newTodo, setNewTodo] = useState('');
-
     const handleClick = () => {
         addTodo(newTodo);
     };
@@ -17,8 +18,11 @@ const AddToDo = ({ addTodo }) => {
     }
     return (
         <>
-            <input type="text" value={newTodo} onChange={handleChange} onKeyUp={handleEnterKeyPress}></input>
-            <button onClick={handleClick}>Add</button>
+            <Form.Field>
+                <StyledLabel>Add Todo</StyledLabel>
+                <input type="text" value={newTodo} onChange={handleChange} onKeyUp={handleEnterKeyPress}></input>
+            </Form.Field>
+            <Button onClick={handleClick}>Add</Button>
         </>
     );
 };

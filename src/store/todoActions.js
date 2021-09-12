@@ -8,6 +8,11 @@ export const add = (title) => ({
   payload: {title}
 });
 
+export const remove = (id) => ({
+  type: 'REMOVE',
+  payload: {id}
+});
+
 export const filterList = (appliedFilter) => ({
   type: 'FILTER',
   payload: {appliedFilter}
