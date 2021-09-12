@@ -1,47 +1,19 @@
-const uniqueId = {
-  currentId: 0,
-  get() {
-    this.currentId += 1;
-    return this.currentId;
-  }
-};
-
 const initialState = {
   filter: 'showAll',
-  todos: [
-    {
-      id: uniqueId.get(),
-      title: 'JS-101',
-      completed: true
-    },
-    {
-      id: uniqueId.get(),
-      title: 'JS-102',
-      completed: false
-    },
-    {
-      id: uniqueId.get(),
-      title: 'JS-201',
-      completed: false
-    },
-    {
-      id: uniqueId.get(),
-      title: 'JS-202',
-      completed: false
-    }
-  ]
+  todos: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD':
+    case 'FETCH_TODOS':
       return {
-        todos: [...state.todos, {
-          id: uniqueId.get(),
-          title: action.payload.title,
-          completed: false
-        }],
-        filter: state.filter
+        todos: action.payload.data,
+        filter: state.filter,
+      }
+    case 'CREATE_TODO':
+      return {
+        todos: [...state.todos, action.payload.data],
+        filter: state.filter,
       }
     case 'TOGGLE':
       return {

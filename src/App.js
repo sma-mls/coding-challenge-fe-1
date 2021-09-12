@@ -4,12 +4,15 @@ import { Form } from 'semantic-ui-react';
 import AddToDo from './components/AddTodo';
 import FilterToDo from './components/FilterTodo';
 import TodoList from './components/TodoList';
-import { add, filterList, toggle, remove } from './store/todoActions';
+import { filterList, toggle, remove, fetchTodos, createTodo } from './store/todoActions';
 import { StyledWrapper } from './styled';
 
 class App extends Component {
+    componentDidMount() {
+        this.props.fetchTodos();
+    }
     addTodo = (newTodo) => {
-        this.props.add(newTodo);
+        this.props.createTodo(newTodo);
     }
     filterTodo = (appliedFilter) => {
         this.props.filterList(appliedFilter);
@@ -21,7 +24,6 @@ class App extends Component {
         this.props.remove(todoId);
     };
     render() {
-        console.log(this.props);
         return (
             <StyledWrapper>
                 <Form>
@@ -41,4 +43,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, { add, filterList, toggle, remove })(App);
+export default connect(mapStateToProps, { createTodo, fetchTodos, filterList, toggle, remove })(App);
