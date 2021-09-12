@@ -1,26 +1,54 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
+  entry: path.join(__dirname, "src", "index.js"),
+  output: {
+    path: path.resolve(__dirname, "dist"),
+  },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.?js$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: [
+              '@babel/transform-runtime'
+            ]
+          }
+        }
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: require.resolve('url-loader'),
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
+      },
+      {
+        test: [/\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
+        loader: require.resolve('file-loader'),
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
       },
     ]
   },
-  resolve: {
-    extensions: ['*', '.js']
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "src", "index.html"),
+    })
+  ],
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
   },
-  output: {
-    path: `${__dirname}/dist`,
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: './dist'
-  }
-};
+}

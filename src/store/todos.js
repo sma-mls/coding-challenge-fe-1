@@ -1,52 +1,42 @@
-const uniqueId = {
-  currentId: 0,
-  get() {
-    this.currentId += 1;
-    return this.currentId;
-  }
-};
-
-export const initialState = {
-  todos: [
-    {
-      id: uniqueId.get(),
-      title: 'JS-101',
-      completed: true
-    },
-    {
-      id: uniqueId.get(),
-      title: 'JS-102',
-      completed: false
-    },
-    {
-      id: uniqueId.get(),
-      title: 'JS-201',
-      completed: false
-    },
-    {
-      id: uniqueId.get(),
-      title: 'JS-202',
-      completed: false
-    }
-  ]
+const initialState = {
+  filter: 'showAll',
+  todos: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD':
-      state.todos.push({
-        id: uniqueId.get(),
-        title: action.title,
-        completed: false
-      });
-      break;
-    case 'TOGGLE':
-      for (let todo of state.todos) {
-        if (todo.id === action.id) {
-          todo.completed = !todo.completed;
-          break;
-        }
+    case 'FETCH_TODOS':
+      return {
+        todos: action.payload.data,
+        filter: state.filter,
       }
-      break;
+    case 'CREATE_TODO':
+      return {
+        todos: [...state.todos, action.payload.data],
+        filter: state.filter,
+      }
+    case 'TOGGLE':
+      return {
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            todo.completed = !todo.completed;
+          }
+          return todo;
+        }),
+        filter: state.filter,
+      }
+    case 'FILTER':
+      return {
+        todos: state.todos,
+        filter: action.payload.appliedFilter,
+      }
+    case 'REMOVE':
+      return {
+        todos: state.todos.filter((todo) => {
+          return todo.id !== action.payload.id;
+        }),
+        filter: action.payload.appliedFilter,
+      }
   }
+  return state;
 }
