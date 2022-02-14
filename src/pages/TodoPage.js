@@ -6,12 +6,18 @@ import {
 } from "../store/Redux/todo/actions/Todo.actions";
 import { connect } from 'react-redux'
 
-function TodoPage({dispatch, todoItems}) {
+function TodoPage({dispatch, items}) {
     useEffect(() => {
         dispatch(get_todo_list_action());
     },[dispatch]);
 
+    useEffect(() => {
+        setTodoItems(items)
+    },[items]);
+
     const [text, setText] = useState('');
+    const [todoItems, setTodoItems] = useState(items);
+    const [filter, setFilter] = useState('All');
 
     const toggle = (id) => {
         dispatch(toggle_todo_item_action(id));
@@ -28,6 +34,21 @@ function TodoPage({dispatch, todoItems}) {
             addToList();
         }
     };
+    const onFilterValue = (event) => {
+        let value = event.target.value
+        setFilter(value)
+        if (value === 'Open'){
+            setTodoItems(items.filter(value => value.completed === false))
+        }
+        else if (value === 'Closed'){
+            setTodoItems(items.filter(value => value.completed === true))
+
+        }
+        else {
+            setTodoItems(items)
+        }
+
+    };
 
   return (
       <div className="App">
@@ -35,6 +56,14 @@ function TodoPage({dispatch, todoItems}) {
               <input type="text" data-element="addTodoInput" value={text} onChange={(event)=>setText(event.target.value)} onKeyDown={handleKeyDown}/>
               <button data-element="addTodoButton" onClick={addToList}>Add</button>
           </div>
+
+          <div>
+              <input type="radio" value="All" name="all" checked={filter==='All'} onChange={onFilterValue}/> show All
+              <input type="radio" value="Closed" name="closed" checked={filter==='Closed'} onChange={onFilterValue}/> Completed
+              <input type="radio" value="Open" name="open" checked={filter==='Open'} onChange={onFilterValue}/> in progress
+          </div>
+
+
           <ul className="todos">
               {todoItems && todoItems.map(item => {
                   return (
@@ -54,7 +83,7 @@ function TodoPage({dispatch, todoItems}) {
 const mapStateToProps = (state, ownProps) => {
     return {
     ...ownProps,
-        todoItems: state.todoReducer.data
+        items: state.todoReducer.data
     }
 };
 
