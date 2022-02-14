@@ -10,12 +10,21 @@ function App() {
     store.dispatch(todoActions.toggle(id));
   }
   const addToList = () => {
-    store.dispatch(todoActions.add(text));
+      if(text.length){
+          store.dispatch(todoActions.add(text));
+          setText('')
+      }
   }
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            addToList();
+        }
+    };
   return (
       <div className="App">
         <div className="form">
-          <input type="text" data-element="addTodoInput" value={text} onChange={(event)=>setText(event.target.value)}/>
+          <input type="text" data-element="addTodoInput" value={text} onChange={(event)=>setText(event.target.value)} onKeyDown={handleKeyDown}/>
             <button data-element="addTodoButton" onClick={addToList}>Add</button>
         </div>
         <ul className="todos">
