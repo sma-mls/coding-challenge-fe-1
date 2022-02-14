@@ -8,22 +8,25 @@
     "build": "webpack --mode=production"
   },
   "dependencies": {
-    "react": "^17.0.2",
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
-    "webpack": "^5.68.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^3.1.14",
+    "polished": "4.1.4",
+    "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
+    "redux-saga": "^1.0.0",
     "style-loader": "^0.23.1",
-    "redux-saga": "^1.0.0"
+    "styled-components": "5.3.3",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^3.1.14"
   },
   "devDependencies": {
-    "css-loader": "^6.6.0",
     "@babel/preset-react": "^7.14.5",
-    "html-webpack-plugin": "^5.3.2"
+    "css-loader": "^6.6.0",
+    "html-webpack-plugin": "^5.3.2",
+    "prettier": "2.5.1"
   }
 }
